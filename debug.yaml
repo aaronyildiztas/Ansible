@@ -1,0 +1,9 @@
+---
+- hosts: web
+  vars:
+    key: "Hello"
+    name: "Aaron"
+    lastname: "Yildiztas"
+  tasks:
+  - debug:
+      msg: "varibable set to {{key}}. your name {{name}} and Your lastname {{lastname}}"

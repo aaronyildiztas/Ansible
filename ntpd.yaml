@@ -1,0 +1,26 @@
+---
+- hosts: all
+  tasks:
+  - name: Install NTP
+    yum:
+      name: ntp
+      state: latest
+    notify: restart ntpd
+  - name: Git Installation
+    yum:
+      name: telnet
+      state: latest
+    notify: restart ntpd
+  - name: Reconfigure Time Server
+    lineinfile:
+      path: /etc/ntp.conf
+      regexp: '^server.*iburst$'
+      line: 'server pool.ntp.org iburst'
+    notify: restart ntpd
+  handlers:
+  - name: restart ntpd
+    service:
+      name: ntpd
+      state: restarted
+
+  
